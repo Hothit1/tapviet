@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Học Viết Chữ Cái</title>
+    <title>Học Viết Chữ Cái và Số</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -236,12 +236,12 @@
 </head>
 <body>
     <header>
-        <h1>Học Viết Chữ Cái</h1>
+        <h1>Học Viết Chữ Cái và Số</h1>
     </header>
     
     <div class="container">
         <div class="alphabet-selector">
-            <!-- Các nút chữ cái sẽ được tạo bằng JavaScript -->
+            <!-- Các nút chữ cái và số sẽ được tạo bằng JavaScript -->
         </div>
         
         <div class="display-area">
@@ -275,153 +275,213 @@
     </div>
     
     <script>
-        // Dữ liệu chữ cái và đường nét
-            const alphabetData = [
-        { letter: 'A', name: 'Chữ A', strokePaths: [
-            {x: 150, y: 250, type: 'moveTo'}, {x: 100, y: 50, type: 'lineTo'},
-            {x: 150, y: 250, type: 'moveTo'}, {x: 200, y: 50, type: 'lineTo'},
-            {x: 125, y: 150, type: 'moveTo'}, {x: 175, y: 150, type: 'lineTo'}
-        ]},
-        { letter: 'B', name: 'Chữ B', strokePaths: [
-            {x: 100, y: 50, type: 'moveTo'}, {x: 100, y: 250, type: 'lineTo'},
-            {x: 100, y: 50, type: 'moveTo'}, {x: 180, y: 50, type: 'lineTo'},
-            {x: 200, y: 75, type: 'lineTo'}, {x: 200, y: 100, type: 'lineTo'},
-            {x: 180, y: 125, type: 'lineTo'}, {x: 100, y: 125, type: 'lineTo'},
-            {x: 180, y: 125, type: 'moveTo'}, {x: 200, y: 150, type: 'lineTo'},
-            {x: 200, y: 225, type: 'lineTo'}, {x: 180, y: 250, type: 'lineTo'},
-            {x: 100, y: 250, type: 'lineTo'}
-        ]},
-        { letter: 'C', name: 'Chữ C', strokePaths: [
-            {x: 200, y: 75, type: 'moveTo'}, {x: 175, y: 50, type: 'lineTo'},
-            {x: 125, y: 50, type: 'lineTo'}, {x: 100, y: 75, type: 'lineTo'},
-            {x: 100, y: 225, type: 'lineTo'}, {x: 125, y: 250, type: 'lineTo'},
-            {x: 175, y: 250, type: 'lineTo'}, {x: 200, y: 225, type: 'lineTo'}
-        ]},
-        { letter: 'D', name: 'Chữ D', strokePaths: [
-            {x: 100, y: 50, type: 'moveTo'}, {x: 100, y: 250, type: 'lineTo'},
-            {x: 100, y: 50, type: 'moveTo'}, {x: 150, y: 50, type: 'lineTo'},
-            {x: 180, y: 75, type: 'lineTo'}, {x: 200, y: 125, type: 'lineTo'},
-            {x: 200, y: 175, type: 'lineTo'}, {x: 180, y: 225, type: 'lineTo'},
-            {x: 150, y: 250, type: 'lineTo'}, {x: 100, y: 250, type: 'lineTo'}
-        ]},
-        { letter: 'E', name: 'Chữ E', strokePaths: [
-            {x: 200, y: 50, type: 'moveTo'}, {x: 100, y: 50, type: 'lineTo'},
-            {x: 100, y: 50, type: 'moveTo'}, {x: 100, y: 250, type: 'lineTo'},
-            {x: 100, y: 250, type: 'moveTo'}, {x: 200, y: 250, type: 'lineTo'},
-            {x: 100, y: 150, type: 'moveTo'}, {x: 180, y: 150, type: 'lineTo'}
-        ]},
-        { letter: 'F', name: 'Chữ F', strokePaths: [
-            {x: 200, y: 50, type: 'moveTo'}, {x: 100, y: 50, type: 'lineTo'},
-            {x: 100, y: 50, type: 'moveTo'}, {x: 100, y: 250, type: 'lineTo'},
-            {x: 100, y: 150, type: 'moveTo'}, {x: 180, y: 150, type: 'lineTo'}
-        ]},
-        { letter: 'G', name: 'Chữ G', strokePaths: [
-            {x: 200, y: 75, type: 'moveTo'}, {x: 175, y: 50, type: 'lineTo'},
-            {x: 125, y: 50, type: 'lineTo'}, {x: 100, y: 75, type: 'lineTo'},
-            {x: 100, y: 225, type: 'lineTo'}, {x: 125, y: 250, type: 'lineTo'},
-            {x: 175, y: 250, type: 'lineTo'}, {x: 200, y: 225, type: 'lineTo'},
-            {x: 200, y: 150, type: 'moveTo'}, {x: 150, y: 150, type: 'lineTo'}
-        ]},
-        { letter: 'H', name: 'Chữ H', strokePaths: [
-            {x: 100, y: 50, type: 'moveTo'}, {x: 100, y: 250, type: 'lineTo'},
-            {x: 200, y: 50, type: 'moveTo'}, {x: 200, y: 250, type: 'lineTo'},
-            {x: 100, y: 150, type: 'moveTo'}, {x: 200, y: 150, type: 'lineTo'}
-        ]},
-        { letter: 'I', name: 'Chữ I', strokePaths: [
-            {x: 150, y: 50, type: 'moveTo'}, {x: 150, y: 250, type: 'lineTo'},
-            {x: 100, y: 50, type: 'moveTo'}, {x: 200, y: 50, type: 'lineTo'},
-            {x: 100, y: 250, type: 'moveTo'}, {x: 200, y: 250, type: 'lineTo'}
-        ]},
-        { letter: 'J', name: 'Chữ J', strokePaths: [
-            {x: 200, y: 50, type: 'moveTo'}, {x: 200, y: 200, type: 'lineTo'},
-            {x: 200, y: 225, type: 'lineTo'}, {x: 175, y: 250, type: 'lineTo'},
-            {x: 125, y: 250, type: 'lineTo'}, {x: 100, y: 225, type: 'lineTo'}
-        ]},
-        { letter: 'K', name: 'Chữ K', strokePaths: [
-            {x: 100, y: 50, type: 'moveTo'}, {x: 100, y: 250, type: 'lineTo'},
-            {x: 100, y: 150, type: 'moveTo'}, {x: 200, y: 50, type: 'lineTo'},
-            {x: 100, y: 150, type: 'moveTo'}, {x: 200, y: 250, type: 'lineTo'}
-        ]},
-        { letter: 'L', name: 'Chữ L', strokePaths: [
-            {x: 100, y: 50, type: 'moveTo'}, {x: 100, y: 250, type: 'lineTo'},
-            {x: 100, y: 250, type: 'moveTo'}, {x: 200, y: 250, type: 'lineTo'}
-        ]},
-        { letter: 'M', name: 'Chữ M', strokePaths: [
-            {x: 100, y: 250, type: 'moveTo'}, {x: 100, y: 50, type: 'lineTo'},
-            {x: 150, y: 150, type: 'lineTo'}, {x: 200, y: 50, type: 'lineTo'},
-            {x: 200, y: 250, type: 'lineTo'}
-        ]},
-        { letter: 'N', name: 'Chữ N', strokePaths: [
-            {x: 100, y: 250, type: 'moveTo'}, {x: 100, y: 50, type: 'lineTo'},
-            {x: 100, y: 50, type: 'moveTo'}, {x: 200, y: 250, type: 'lineTo'},
-            {x: 200, y: 250, type: 'moveTo'}, {x: 200, y: 50, type: 'lineTo'}
-        ]},
-        { letter: 'O', name: 'Chữ O', strokePaths: [
-            {x: 150, y: 50, type: 'moveTo'}, {x: 100, y: 75, type: 'lineTo'},
-            {x: 100, y: 225, type: 'lineTo'}, {x: 150, y: 250, type: 'lineTo'},
-            {x: 200, y: 225, type: 'lineTo'}, {x: 200, y: 75, type: 'lineTo'},
-            {x: 150, y: 50, type: 'lineTo'}
-        ]},
-        { letter: 'P', name: 'Chữ P', strokePaths: [
-            {x: 100, y: 50, type: 'moveTo'}, {x: 100, y: 250, type: 'lineTo'},
-            {x: 100, y: 50, type: 'moveTo'}, {x: 180, y: 50, type: 'lineTo'},
-            {x: 200, y: 75, type: 'lineTo'}, {x: 200, y: 100, type: 'lineTo'},
-            {x: 180, y: 125, type: 'lineTo'}, {x: 100, y: 125, type: 'lineTo'}
-        ]},
-        { letter: 'Q', name: 'Chữ Q', strokePaths: [
-            {x: 150, y: 50, type: 'moveTo'}, {x: 100, y: 75, type: 'lineTo'},
-            {x: 100, y: 225, type: 'lineTo'}, {x: 150, y: 250, type: 'lineTo'},
-            {x: 200, y: 225, type: 'lineTo'}, {x: 200, y: 75, type: 'lineTo'},
-            {x: 150, y: 50, type: 'lineTo'}, {x: 150, y: 175, type: 'moveTo'},
-            {x: 200, y: 250, type: 'lineTo'}
-        ]},
-        { letter: 'R', name: 'Chữ R', strokePaths: [
-            {x: 100, y: 50, type: 'moveTo'}, {x: 100, y: 250, type: 'lineTo'},
-            {x: 100, y: 50, type: 'moveTo'}, {x: 180, y: 50, type: 'lineTo'},
-            {x: 200, y: 75, type: 'lineTo'}, {x: 200, y: 100, type: 'lineTo'},
-            {x: 180, y: 125, type: 'lineTo'}, {x: 100, y: 125, type: 'lineTo'},
-            {x: 180, y: 125, type: 'moveTo'}, {x: 200, y: 250, type: 'lineTo'}
-        ]},
-        { letter: 'S', name: 'Chữ S', strokePaths: [
-            {x: 200, y: 75, type: 'moveTo'}, {x: 175, y: 50, type: 'lineTo'},
-            {x: 125, y: 50, type: 'lineTo'}, {x: 100, y: 75, type: 'lineTo'},
-            {x: 100, y: 125, type: 'lineTo'}, {x: 175, y: 175, type: 'lineTo'},
-            {x: 200, y: 225, type: 'lineTo'}, {x: 175, y: 250, type: 'lineTo'},
-            {x: 125, y: 250, type: 'lineTo'}, {x: 100, y: 225, type: 'lineTo'}
-        ]},
-        { letter: 'T', name: 'Chữ T', strokePaths: [
-            {x: 100, y: 50, type: 'moveTo'}, {x: 200, y: 50, type: 'lineTo'},
-            {x: 150, y: 50, type: 'moveTo'}, {x: 150, y: 250, type: 'lineTo'}
-        ]},
-        { letter: 'U', name: 'Chữ U', strokePaths: [
-            {x: 100, y: 50, type: 'moveTo'}, {x: 100, y: 225, type: 'lineTo'},
-            {x: 125, y: 250, type: 'lineTo'}, {x: 175, y: 250, type: 'lineTo'},
-            {x: 200, y: 225, type: 'lineTo'}, {x: 200, y: 50, type: 'lineTo'}
-        ]},
-        { letter: 'V', name: 'Chữ V', strokePaths: [
-            {x: 100, y: 50, type: 'moveTo'}, {x: 150, y: 250, type: 'lineTo'},
-            {x: 150, y: 250, type: 'moveTo'}, {x: 200, y: 50, type: 'lineTo'}
-        ]},
-        { letter: 'W', name: 'Chữ W', strokePaths: [
-            {x: 100, y: 50, type: 'moveTo'}, {x: 125, y: 250, type: 'lineTo'},
-            {x: 150, y: 150, type: 'lineTo'}, {x: 175, y: 250, type: 'lineTo'},
-            {x: 200, y: 50, type: 'lineTo'}
-        ]},
-        { letter: 'X', name: 'Chữ X', strokePaths: [
-            {x: 100, y: 50, type: 'moveTo'}, {x: 200, y: 250, type: 'lineTo'},
-            {x: 200, y: 50, type: 'moveTo'}, {x: 100, y: 250, type: 'lineTo'}
-        ]},
-        { letter: 'Y', name: 'Chữ Y', strokePaths: [
-            {x: 100, y: 50, type: 'moveTo'}, {x: 150, y: 150, type: 'lineTo'},
-            {x: 150, y: 150, type: 'moveTo'}, {x: 200, y: 50, type: 'lineTo'},
-            {x: 150, y: 150, type: 'moveTo'}, {x: 150, y: 250, type: 'lineTo'}
-        ]},
-        { letter: 'Z', name: 'Chữ Z', strokePaths: [
-            {x: 100, y: 50, type: 'moveTo'}, {x: 200, y: 50, type: 'lineTo'},
-            {x: 200, y: 50, type: 'moveTo'}, {x: 100, y: 250, type: 'lineTo'},
-            {x: 100, y: 250, type: 'moveTo'}, {x: 200, y: 250, type: 'lineTo'}
-        ]}
-    ];
+        // Dữ liệu chữ cái và số
+        const alphabetData = [
+            { letter: 'A', name: 'Chữ A', strokePaths: [
+                {x: 150, y: 250, type: 'moveTo'}, {x: 100, y: 50, type: 'lineTo'},
+                {x: 150, y: 250, type: 'moveTo'}, {x: 200, y: 50, type: 'lineTo'},
+                {x: 125, y: 150, type: 'moveTo'}, {x: 175, y: 150, type: 'lineTo'}
+            ]},
+            { letter: 'B', name: 'Chữ B', strokePaths: [
+                {x: 100, y: 50, type: 'moveTo'}, {x: 100, y: 250, type: 'lineTo'},
+                {x: 100, y: 50, type: 'moveTo'}, {x: 180, y: 50, type: 'lineTo'},
+                {x: 200, y: 75, type: 'lineTo'}, {x: 200, y: 100, type: 'lineTo'},
+                {x: 180, y: 125, type: 'lineTo'}, {x: 100, y: 125, type: 'lineTo'},
+                {x: 180, y: 125, type: 'moveTo'}, {x: 200, y: 150, type: 'lineTo'},
+                {x: 200, y: 225, type: 'lineTo'}, {x: 180, y: 250, type: 'lineTo'},
+                {x: 100, y: 250, type: 'lineTo'}
+            ]},
+            { letter: 'C', name: 'Chữ C', strokePaths: [
+                {x: 200, y: 75, type: 'moveTo'}, {x: 175, y: 50, type: 'lineTo'},
+                {x: 125, y: 50, type: 'lineTo'}, {x: 100, y: 75, type: 'lineTo'},
+                {x: 100, y: 225, type: 'lineTo'}, {x: 125, y: 250, type: 'lineTo'},
+                {x: 175, y: 250, type: 'lineTo'}, {x: 200, y: 225, type: 'lineTo'}
+            ]},
+            { letter: 'D', name: 'Chữ D', strokePaths: [
+                {x: 100, y: 50, type: 'moveTo'}, {x: 100, y: 250, type: 'lineTo'},
+                {x: 100, y: 50, type: 'moveTo'}, {x: 150, y: 50, type: 'lineTo'},
+                {x: 180, y: 75, type: 'lineTo'}, {x: 200, y: 125, type: 'lineTo'},
+                {x: 200, y: 175, type: 'lineTo'}, {x: 180, y: 225, type: 'lineTo'},
+                {x: 150, y: 250, type: 'lineTo'}, {x: 100, y: 250, type: 'lineTo'}
+            ]},
+            { letter: 'E', name: 'Chữ E', strokePaths: [
+                {x: 200, y: 50, type: 'moveTo'}, {x: 100, y: 50, type: 'lineTo'},
+                {x: 100, y: 50, type: 'moveTo'}, {x: 100, y: 250, type: 'lineTo'},
+                {x: 100, y: 250, type: 'moveTo'}, {x: 200, y: 250, type: 'lineTo'},
+                {x: 100, y: 150, type: 'moveTo'}, {x: 180, y: 150, type: 'lineTo'}
+            ]},
+            { letter: 'F', name: 'Chữ F', strokePaths: [
+                {x: 200, y: 50, type: 'moveTo'}, {x: 100, y: 50, type: 'lineTo'},
+                {x: 100, y: 50, type: 'moveTo'}, {x: 100, y: 250, type: 'lineTo'},
+                {x: 100, y: 150, type: 'moveTo'}, {x: 180, y: 150, type: 'lineTo'}
+            ]},
+            { letter: 'G', name: 'Chữ G', strokePaths: [
+                {x: 200, y: 75, type: 'moveTo'}, {x: 175, y: 50, type: 'lineTo'},
+                {x: 125, y: 50, type: 'lineTo'}, {x: 100, y: 75, type: 'lineTo'},
+                {x: 100, y: 225, type: 'lineTo'}, {x: 125, y: 250, type: 'lineTo'},
+                {x: 175, y: 250, type: 'lineTo'}, {x: 200, y: 225, type: 'lineTo'},
+                {x: 200, y: 150, type: 'moveTo'}, {x: 150, y: 150, type: 'lineTo'}
+            ]},
+            { letter: 'H', name: 'Chữ H', strokePaths: [
+                {x: 100, y: 50, type: 'moveTo'}, {x: 100, y: 250, type: 'lineTo'},
+                {x: 200, y: 50, type: 'moveTo'}, {x: 200, y: 250, type: 'lineTo'},
+                {x: 100, y: 150, type: 'moveTo'}, {x: 200, y: 150, type: 'lineTo'}
+            ]},
+            { letter: 'I', name: 'Chữ I', strokePaths: [
+                {x: 150, y: 50, type: 'moveTo'}, {x: 150, y: 250, type: 'lineTo'},
+                {x: 100, y: 50, type: 'moveTo'}, {x: 200, y: 50, type: 'lineTo'},
+                {x: 100, y: 250, type: 'moveTo'}, {x: 200, y: 250, type: 'lineTo'}
+            ]},
+            { letter: 'J', name: 'Chữ J', strokePaths: [
+                {x: 200, y: 50, type: 'moveTo'}, {x: 200, y: 200, type: 'lineTo'},
+                {x: 200, y: 225, type: 'lineTo'}, {x: 175, y: 250, type: 'lineTo'},
+                {x: 125, y: 250, type: 'lineTo'}, {x: 100, y: 225, type: 'lineTo'}
+            ]},
+            { letter: 'K', name: 'Chữ K', strokePaths: [
+                {x: 100, y: 50, type: 'moveTo'}, {x: 100, y: 250, type: 'lineTo'},
+                {x: 100, y: 150, type: 'moveTo'}, {x: 200, y: 50, type: 'lineTo'},
+                {x: 100, y: 150, type: 'moveTo'}, {x: 200, y: 250, type: 'lineTo'}
+            ]},
+            { letter: 'L', name: 'Chữ L', strokePaths: [
+                {x: 100, y: 50, type: 'moveTo'}, {x: 100, y: 250, type: 'lineTo'},
+                {x: 100, y: 250, type: 'moveTo'}, {x: 200, y: 250, type: 'lineTo'}
+            ]},
+            { letter: 'M', name: 'Chữ M', strokePaths: [
+                {x: 100, y: 250, type: 'moveTo'}, {x: 100, y: 50, type: 'lineTo'},
+                {x: 150, y: 150, type: 'lineTo'}, {x: 200, y: 50, type: 'lineTo'},
+                {x: 200, y: 250, type: 'lineTo'}
+            ]},
+            { letter: 'N', name: 'Chữ N', strokePaths: [
+                {x: 100, y: 250, type: 'moveTo'}, {x: 100, y: 50, type: 'lineTo'},
+                {x: 100, y: 50, type: 'moveTo'}, {x: 200, y: 250, type: 'lineTo'},
+                {x: 200, y: 250, type: 'moveTo'}, {x: 200, y: 50, type: 'lineTo'}
+            ]},
+            { letter: 'O', name: 'Chữ O', strokePaths: [
+                {x: 150, y: 50, type: 'moveTo'}, {x: 100, y: 75, type: 'lineTo'},
+                {x: 100, y: 225, type: 'lineTo'}, {x: 150, y: 250, type: 'lineTo'},
+                {x: 200, y: 225, type: 'lineTo'}, {x: 200, y: 75, type: 'lineTo'},
+                {x: 150, y: 50, type: 'lineTo'}
+            ]},
+            { letter: 'P', name: 'Chữ P', strokePaths: [
+                {x: 100, y: 50, type: 'moveTo'}, {x: 100, y: 250, type: 'lineTo'},
+                {x: 100, y: 50, type: 'moveTo'}, {x: 180, y: 50, type: 'lineTo'},
+                {x: 200, y: 75, type: 'lineTo'}, {x: 200, y: 100, type: 'lineTo'},
+                {x: 180, y: 125, type: 'lineTo'}, {x: 100, y: 125, type: 'lineTo'}
+            ]},
+            { letter: 'Q', name: 'Chữ Q', strokePaths: [
+                {x: 150, y: 50, type: 'moveTo'}, {x: 100, y: 75, type: 'lineTo'},
+                {x: 100, y: 225, type: 'lineTo'}, {x: 150, y: 250, type: 'lineTo'},
+                {x: 200, y: 225, type: 'lineTo'}, {x: 200, y: 75, type: 'lineTo'},
+                {x: 150, y: 50, type: 'lineTo'}, {x: 150, y: 175, type: 'moveTo'},
+                {x: 200, y: 250, type: 'lineTo'}
+            ]},
+            { letter: 'R', name: 'Chữ R', strokePaths: [
+                {x: 100, y: 50, type: 'moveTo'}, {x: 100, y: 250, type: 'lineTo'},
+                {x: 100, y: 50, type: 'moveTo'}, {x: 180, y: 50, type: 'lineTo'},
+                {x: 200, y: 75, type: 'lineTo'}, {x: 200, y: 100, type: 'lineTo'},
+                {x: 180, y: 125, type: 'lineTo'}, {x: 100, y: 125, type: 'lineTo'},
+                {x: 180, y: 125, type: 'moveTo'}, {x: 200, y: 250, type: 'lineTo'}
+            ]},
+            { letter: 'S', name: 'Chữ S', strokePaths: [
+                {x: 200, y: 75, type: 'moveTo'}, {x: 175, y: 50, type: 'lineTo'},
+                {x: 125, y: 50, type: 'lineTo'}, {x: 100, y: 75, type: 'lineTo'},
+                {x: 100, y: 125, type: 'lineTo'}, {x: 175, y: 175, type: 'lineTo'},
+                {x: 200, y: 225, type: 'lineTo'}, {x: 175, y: 250, type: 'lineTo'},
+                {x: 125, y: 250, type: 'lineTo'}, {x: 100, y: 225, type: 'lineTo'}
+            ]},
+            { letter: 'T', name: 'Chữ T', strokePaths: [
+                {x: 100, y: 50, type: 'moveTo'}, {x: 200, y: 50, type: 'lineTo'},
+                {x: 150, y: 50, type: 'moveTo'}, {x: 150, y: 250, type: 'lineTo'}
+            ]},
+            { letter: 'U', name: 'Chữ U', strokePaths: [
+                {x: 100, y: 50, type: 'moveTo'}, {x: 100, y: 225, type: 'lineTo'},
+                {x: 125, y: 250, type: 'lineTo'}, {x: 175, y: 250, type: 'lineTo'},
+                {x: 200, y: 225, type: 'lineTo'}, {x: 200, y: 50, type: 'lineTo'}
+            ]},
+            { letter: 'V', name: 'Chữ V', strokePaths: [
+                {x: 100, y: 50, type: 'moveTo'}, {x: 150, y: 250, type: 'lineTo'},
+                {x: 150, y: 250, type: 'moveTo'}, {x: 200, y: 50, type: 'lineTo'}
+            ]},
+            { letter: 'W', name: 'Chữ W', strokePaths: [
+                {x: 100, y: 50, type: 'moveTo'}, {x: 125, y: 250, type: 'lineTo'},
+                {x: 150, y: 150, type: 'lineTo'}, {x: 175, y: 250, type: 'lineTo'},
+                {x: 200, y: 50, type: 'lineTo'}
+            ]},
+            { letter: 'X', name: 'Chữ X', strokePaths: [
+                {x: 100, y: 50, type: 'moveTo'}, {x: 200, y: 250, type: 'lineTo'},
+                {x: 200, y: 50, type: 'moveTo'}, {x: 100, y: 250, type: 'lineTo'}
+            ]},
+            { letter: 'Y', name: 'Chữ Y', strokePaths: [
+                {x: 100, y: 50, type: 'moveTo'}, {x: 150, y: 150, type: 'lineTo'},
+                {x: 150, y: 150, type: 'moveTo'}, {x: 200, y: 50, type: 'lineTo'},
+                {x: 150, y: 150, type: 'moveTo'}, {x: 150, y: 250, type: 'lineTo'}
+            ]},
+            { letter: 'Z', name: 'Chữ Z', strokePaths: [
+                {x: 100, y: 50, type: 'moveTo'}, {x: 200, y: 50, type: 'lineTo'},
+                {x: 200, y: 50, type: 'moveTo'}, {x: 100, y: 250, type: 'lineTo'},
+                {x: 100, y: 250, type: 'moveTo'}, {x: 200, y: 250, type: 'lineTo'}
+            ]},
+            { letter: '0', name: 'Số 0', strokePaths: [
+                {x: 150, y: 50, type: 'moveTo'}, {x: 100, y: 75, type: 'lineTo'},
+                {x: 100, y: 225, type: 'lineTo'}, {x: 150, y: 250, type: 'lineTo'},
+                {x: 200, y: 225, type: 'lineTo'}, {x: 200, y: 75, type: 'lineTo'},
+                {x: 150, y: 50, type: 'lineTo'}
+            ]},
+            { letter: '1', name: 'Số 1', strokePaths: [
+                {x: 125, y: 75, type: 'moveTo'}, {x: 150, y: 50, type: 'lineTo'},
+                {x: 150, y: 50, type: 'moveTo'}, {x: 150, y: 250, type: 'lineTo'}
+            ]},
+            { letter: '2', name: 'Số 2', strokePaths: [
+                {x: 100, y: 75, type: 'moveTo'}, {x: 125, y: 50, type: 'lineTo'},
+                {x: 175, y: 50, type: 'lineTo'}, {x: 200, y: 75, type: 'lineTo'},
+                {x: 100, y: 250, type: 'lineTo'}, {x: 200, y: 250, type: 'lineTo'}
+            ]},
+            { letter: '3', name: 'Số 3', strokePaths: [
+                {x: 100, y: 75, type: 'moveTo'}, {x: 175, y: 50, type: 'lineTo'},
+                {x: 200, y: 75, type: 'lineTo'}, {x: 200, y: 125, type: 'lineTo'},
+                {x: 175, y: 150, type: 'lineTo'}, {x: 200, y: 175, type: 'lineTo'},
+                {x: 200, y: 225, type: 'lineTo'}, {x: 175, y: 250, type: 'lineTo'},
+                {x: 100, y: 225, type: 'lineTo'}
+            ]},
+            { letter: '4', name: 'Số 4', strokePaths: [
+                {x: 175, y: 50, type: 'moveTo'}, {x: 100, y: 150, type: 'lineTo'},
+                {x: 100, y: 150, type: 'moveTo'}, {x: 200, y: 150, type: 'lineTo'},
+                {x: 175, y: 50, type: 'moveTo'}, {x: 175, y: 250, type: 'lineTo'}
+            ]},
+            { letter: '5', name: 'Số 5', strokePaths: [
+                {x: 200, y: 50, type: 'moveTo'}, {x: 100, y: 50, type: 'lineTo'},
+                {x: 100, y: 150, type: 'lineTo'}, {x: 175, y: 150, type: 'lineTo'},
+                {x: 200, y: 175, type: 'lineTo'}, {x: 200, y: 225, type: 'lineTo'},
+                {x: 175, y: 250, type: 'lineTo'}, {x: 100, y: 225, type: 'lineTo'}
+            ]},
+            { letter: '6', name: 'Số 6', strokePaths: [
+                {x: 200, y: 75, type: 'moveTo'}, {x: 175, y: 50, type: 'lineTo'},
+                {x: 125, y: 50, type: 'lineTo'}, {x: 100, y: 75, type: 'lineTo'},
+                {x: 100, y: 225, type: 'lineTo'}, {x: 150, y: 250, type: 'lineTo'},
+                {x: 200, y: 225, type: 'lineTo'}, {x: 200, y: 175, type: 'lineTo'},
+                {x: 150, y: 150, type: 'lineTo'}, {x: 100, y: 175, type: 'lineTo'}
+            ]},
+            { letter: '7', name: 'Số 7', strokePaths: [
+                {x: 100, y: 50, type: 'moveTo'}, {x: 200, y: 50, type: 'lineTo'},
+                {x: 200, y: 50, type: 'moveTo'}, {x: 125, y: 250, type: 'lineTo'}
+            ]},
+            { letter: '8', name: 'Số 8', strokePaths: [
+                {x: 150, y: 50, type: 'moveTo'}, {x: 100, y: 75, type: 'lineTo'},
+                {x: 100, y: 125, type: 'lineTo'}, {x: 150, y: 150, type: 'lineTo'},
+                {x: 200, y: 175, type: 'lineTo'}, {x: 200, y: 225, type: 'lineTo'},
+                {x: 150, y: 250, type: 'lineTo'}, {x: 100, y: 225, type: 'lineTo'},
+                {x: 100, y: 175, type: 'lineTo'}, {x: 150, y: 150, type: 'lineTo'},
+                {x: 200, y: 125, type: 'lineTo'}, {x: 200, y: 75, type: 'lineTo'},
+                {x: 150, y: 50, type: 'lineTo'}
+            ]},
+            { letter: '9', name: 'Số 9', strokePaths: [
+                {x: 100, y: 225, type: 'moveTo'}, {x: 125, y: 250, type: 'lineTo'},
+                {x: 175, y: 250, type: 'lineTo'}, {x: 200, y: 225, type: 'lineTo'},
+                {x: 200, y: 75, type: 'lineTo'}, {x: 150, y: 50, type: 'lineTo'},
+                {x: 100, y: 75, type: 'lineTo'}, {x: 100, y: 125, type: 'lineTo'},
+                {x: 150, y: 150, type: 'lineTo'}, {x: 200, y: 125, type: 'lineTo'}
+            ]}
+        ];
         
         // Khởi tạo các biến và DOM elements
         let currentLetterIndex = 0;
@@ -451,12 +511,12 @@
             clearCanvas();
         }
         
-        // Tạo các nút chữ cái
+        // Tạo các nút chữ cái và số
         function createAlphabetButtons() {
-            const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
             
-            for (let i = 0; i < alphabet.length; i++) {
-                const letter = alphabet[i];
+            for (let i = 0; i < characters.length; i++) {
+                const letter = characters[i];
                 const button = document.createElement('button');
                 button.className = 'letter-btn';
                 button.textContent = letter;
@@ -470,7 +530,6 @@
         
         // Cập nhật giao diện người dùng
         function updateUI() {
-            // Cập nhật nút active
             const buttons = document.querySelectorAll('.letter-btn');
             buttons.forEach((btn, index) => {
                 if (index === currentLetterIndex) {
@@ -480,19 +539,14 @@
                 }
             });
             
-            // Cập nhật chữ cái hiển thị
             const currentData = alphabetData[currentLetterIndex] || alphabetData[0];
             currentLetterElement.textContent = currentData.letter;
             letterNameElement.textContent = currentData.name;
             
-            // Cập nhật thanh tiến trình
-            const progress = ((currentLetterIndex + 1) / 26) * 100;
+            const progress = ((currentLetterIndex + 1) / 36) * 100; // 26 chữ cái + 10 số
             progressBar.style.width = `${progress}%`;
             
-            // Xóa canvas
             clearCanvas();
-            
-            // Reset chế độ thực hành
             isPracticeMode = false;
             container.classList.remove('practice-mode');
             message.style.display = 'none';
@@ -525,7 +579,6 @@
                 const endX = currentPath.x;
                 const endY = currentPath.y;
                 
-                // Vẽ đường từ từ
                 let progress = 0;
                 const animationSpeed = 0.01;
                 const drawLine = () => {
@@ -573,7 +626,6 @@
             container.classList.add('practice-mode');
             message.style.display = 'block';
             
-            // Vẽ đường viết mẫu mờ
             const currentData = alphabetData[currentLetterIndex] || alphabetData[0];
             drawGuideLines(currentData.strokePaths);
         }
@@ -598,7 +650,7 @@
             ctx.stroke();
         }
         
-        // Chuyển đến chữ cái trước
+        // Chuyển đến ký tự trước
         function prevLetter() {
             if (currentLetterIndex > 0) {
                 currentLetterIndex--;
@@ -606,9 +658,9 @@
             }
         }
         
-        // Chuyển đến chữ cái tiếp theo
+        // Chuyển đến ký tự tiếp theo
         function nextLetter() {
-            if (currentLetterIndex < 25) {
+            if (currentLetterIndex < 35) { // 36 ký tự (0-based index)
                 currentLetterIndex++;
                 updateUI();
             }
@@ -627,7 +679,6 @@
             lastX = e.clientX - rect.left;
             lastY = e.clientY - rect.top;
             
-            // Thêm điểm vào mảng vẽ của người dùng
             userDrawing.push({
                 x: lastX,
                 y: lastY,
@@ -653,7 +704,6 @@
             lastX = currentX;
             lastY = currentY;
             
-            // Thêm điểm vào mảng vẽ của người dùng
             userDrawing.push({
                 x: currentX,
                 y: currentY,
@@ -671,7 +721,6 @@
         canvas.addEventListener('mouseup', stopDrawing);
         canvas.addEventListener('mouseout', stopDrawing);
         
-        // Hỗ trợ thiết bị cảm ứng
         canvas.addEventListener('touchstart', function(e) {
             e.preventDefault();
             const touch = e.touches[0];
