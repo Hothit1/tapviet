@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Học Viết Chữ Cái</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        header {
+            width: 100%;
+            background-color: #4A90E2;
+            color: white;
+            text-align: center;
+            padding: 15px 0;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 28px;
+        }
+        
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 800px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .alphabet-selector {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 20px;
+            width: 100%;
+            gap: 5px;
+        }
+        
+        .letter-btn {
+            width: 40px;
+            height: 40px;
+            border: 2px solid #4A90E2;
+            background-color: white;
+            color: #4A90E2;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .letter-btn:hover, .letter-btn.active {
+            background-color: #4A90E2;
+            color: white;
+        }
+        
+        .display-area {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        
+        .letter-display {
+            flex: 1;
+            text-align: center;
+            max-width: 300px;
+        }
+        
+        .current-letter {
+            font-size: 120px;
+            font-weight: bold;
+            color: #333;
+            line-height: 1;
+            margin: 10px 0;
+        }
+        
+        .letter-name {
+            font-size: 24px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .animation-area {
+            flex: 1;
+            text-align: center;
+        }
+        
+        .canvas-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 0 auto;
+            border: 2px dashed #ccc;
+            border-radius: 10px;
+            background-image: linear-gradient(to right, #f0f0f0 1px, transparent 1px),
+                              linear-gradient(to bottom, #f0f0f0 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        
+        #animationCanvas {
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            margin-top: 20px;
+            gap: 10px;
+        }
+        
+        .control-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .animate-btn {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        .clear-btn {
+            background-color: #FF5252;
+            color: white;
+        }
+        
+        .practice-btn {
+            background-color: #FFEB3B;
+            color: #333;
+        }
+        
+        .control-btn:hover {
+            opacity: 0.9;
+            transform: scale(1.05);
+        }
+        
+        .navigation {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            max-width: 300px;
+            margin-top: 20px;
+        }
+        
+        .nav-btn {
+            width: 80px;
+            padding: 8px 0;
+            border: none;
+            border-radius: 5px;
+            background-color: #4A90E2;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .nav-btn:hover {
+            background-color: #2E66B6;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background-color: #eee;
+            border-radius: 4px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background-color: #4A90E2;
+            width: 0%;
+            transition: width 0.3s;
+        }
+        
+        .message {
+            margin-top: 15px;
+            padding: 10px 15px;
+            border-radius: 5px;
+            background-color: #FFEB3B;
+            color: #333;
+            font-weight: bold;
+            text-align: center;
+            display: none;
+        }
+        
+        .practice-mode .canvas-container {
+            border-color: #FFEB3B;
+            background-color: rgba(255, 235, 59, 0.1);
+        }
+        
+        @media (max-width: 768px) {
+            .display-area {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .letter-display, .animation-area {
+                max-width: 100%;
+                margin-bottom: 20px;
+            }
+            
+            .canvas-container {
+                width: 250px;
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Học Viết Chữ Cái</h1>
+    </header>
+    
+    <div class="container">
+        <div class="alphabet-selector">
+            <!-- Các nút chữ cái sẽ được tạo bằng JavaScript -->
+        </div>
+        
+        <div class="display-area">
+            <div class="letter-display">
+                <div class="current-letter">A</div>
+                <div class="letter-name">Chữ A</div>
+            </div>
+            
+            <div class="animation-area">
+                <div class="canvas-container">
+                    <canvas id="animationCanvas"></canvas>
+                </div>
+                <div class="message">Hãy viết theo đường nét mẫu!</div>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <button class="control-btn animate-btn">Xem Mẫu</button>
+            <button class="control-btn practice-btn">Tập Viết</button>
+            <button class="control-btn clear-btn">Xóa</button>
+        </div>
+        
+        <div class="navigation">
+            <button class="nav-btn prev-btn">Trước</button>
+            <button class="nav-btn next-btn">Tiếp</button>
+        </div>
+        
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+    </div>
+    
+    <script>
+        // Dữ liệu chữ cái và đường nét
+            const alphabetData = [
+        { letter: 'A', name: 'Chữ A', strokePaths: [
+            {x: 150, y: 250, type: 'moveTo'}, {x: 100, y: 50, type: 'lineTo'},
+            {x: 150, y: 250, type: 'moveTo'}, {x: 200, y: 50, type: 'lineTo'},
+            {x: 125, y: 150, type: 'moveTo'}, {x: 175, y: 150, type: 'lineTo'}
+        ]},
+        { letter: 'B', name: 'Chữ B', strokePaths: [
+            {x: 100, y: 50, type: 'moveTo'}, {x: 100, y: 250, type: 'lineTo'},
+            {x: 100, y: 50, type: 'moveTo'}, {x: 180, y: 50, type: 'lineTo'},
+            {x: 200, y: 75, type: 'lineTo'}, {x: 200, y: 100, type: 'lineTo'},
+            {x: 180, y: 125, type: 'lineTo'}, {x: 100, y: 125, type: 'lineTo'},
+            {x: 180, y: 125, type: 'moveTo'}, {x: 200, y: 150, type: 'lineTo'},
+            {x: 200, y: 225, type: 'lineTo'}, {x: 180, y: 250, type: 'lineTo'},
+            {x: 100, y: 250, type: 'lineTo'}
+        ]},
+        { letter: 'C', name: 'Chữ C', strokePaths: [
+            {x: 200, y: 75, type: 'moveTo'}, {x: 175, y: 50, type: 'lineTo'},
+            {x: 125, y: 50, type: 'lineTo'}, {x: 100, y: 75, type: 'lineTo'},
+            {x: 100, y: 225, type: 'lineTo'}, {x: 125, y: 250, type: 'lineTo'},
+            {x: 175, y: 250, type: 'lineTo'}, {x: 200, y: 225, type: 'lineTo'}
+        ]},
+        { letter: 'D', name: 'Chữ D', strokePaths: [
+            {x: 100, y: 50, type: 'moveTo'}, {x: 100, y: 250, type: 'lineTo'},
+            {x: 100, y: 50, type: 'moveTo'}, {x: 150, y: 50, type: 'lineTo'},
+            {x: 180, y: 75, type: 'lineTo'}, {x: 200, y: 125, type: 'lineTo'},
+            {x: 200, y: 175, type: 'lineTo'}, {x: 180, y: 225, type: 'lineTo'},
+            {x: 150, y: 250, type: 'lineTo'}, {x: 100, y: 250, type: 'lineTo'}
+        ]},
+        { letter: 'E', name: 'Chữ E', strokePaths: [
+            {x: 200, y: 50, type: 'moveTo'}, {x: 100, y: 50, type: 'lineTo'},
+            {x: 100, y: 50, type: 'moveTo'}, {x: 100, y: 250, type: 'lineTo'},
+            {x: 100, y: 250, type: 'moveTo'}, {x: 200, y: 250, type: 'lineTo'},
+            {x: 100, y: 150, type: 'moveTo'}, {x: 180, y: 150, type: 'lineTo'}
+        ]},
+        { letter: 'F', name: 'Chữ F', strokePaths: [
+            {x: 200, y: 50, type: 'moveTo'}, {x: 100, y: 50, type: 'lineTo'},
+            {x: 100, y: 50, type: 'moveTo'}, {x: 100, y: 250, type: 'lineTo'},
+            {x: 100, y: 150, type: 'moveTo'}, {x: 180, y: 150, type: 'lineTo'}
+        ]},
+        { letter: 'G', name: 'Chữ G', strokePaths: [
+            {x: 200, y: 75, type: 'moveTo'}, {x: 175, y: 50, type: 'lineTo'},
+            {x: 125, y: 50, type: 'lineTo'}, {x: 100, y: 75, type: 'lineTo'},
+            {x: 100, y: 225, type: 'lineTo'}, {x: 125, y: 250, type: 'lineTo'},
+            {x: 175, y: 250, type: 'lineTo'}, {x: 200, y: 225, type: 'lineTo'},
+            {x: 200, y: 150, type: 'moveTo'}, {x: 150, y: 150, type: 'lineTo'}
+        ]},
+        { letter: 'H', name: 'Chữ H', strokePaths: [
+            {x: 100, y: 50, type: 'moveTo'}, {x: 100, y: 250, type: 'lineTo'},
+            {x: 200, y: 50, type: 'moveTo'}, {x: 200, y: 250, type: 'lineTo'},
+            {x: 100, y: 150, type: 'moveTo'}, {x: 200, y: 150, type: 'lineTo'}
+        ]},
+        { letter: 'I', name: 'Chữ I', strokePaths: [
+            {x: 150, y: 50, type: 'moveTo'}, {x: 150, y: 250, type: 'lineTo'},
+            {x: 100, y: 50, type: 'moveTo'}, {x: 200, y: 50, type: 'lineTo'},
+            {x: 100, y: 250, type: 'moveTo'}, {x: 200, y: 250, type: 'lineTo'}
+        ]},
+        { letter: 'J', name: 'Chữ J', strokePaths: [
+            {x: 200, y: 50, type: 'moveTo'}, {x: 200, y: 200, type: 'lineTo'},
+            {x: 200, y: 225, type: 'lineTo'}, {x: 175, y: 250, type: 'lineTo'},
+            {x: 125, y: 250, type: 'lineTo'}, {x: 100, y: 225, type: 'lineTo'}
+        ]},
+        { letter: 'K', name: 'Chữ K', strokePaths: [
+            {x: 100, y: 50, type: 'moveTo'}, {x: 100, y: 250, type: 'lineTo'},
+            {x: 100, y: 150, type: 'moveTo'}, {x: 200, y: 50, type: 'lineTo'},
+            {x: 100, y: 150, type: 'moveTo'}, {x: 200, y: 250, type: 'lineTo'}
+        ]},
+        { letter: 'L', name: 'Chữ L', strokePaths: [
+            {x: 100, y: 50, type: 'moveTo'}, {x: 100, y: 250, type: 'lineTo'},
+            {x: 100, y: 250, type: 'moveTo'}, {x: 200, y: 250, type: 'lineTo'}
+        ]},
+        { letter: 'M', name: 'Chữ M', strokePaths: [
+            {x: 100, y: 250, type: 'moveTo'}, {x: 100, y: 50, type: 'lineTo'},
+            {x: 150, y: 150, type: 'lineTo'}, {x: 200, y: 50, type: 'lineTo'},
+            {x: 200, y: 250, type: 'lineTo'}
+        ]},
+        { letter: 'N', name: 'Chữ N', strokePaths: [
+            {x: 100, y: 250, type: 'moveTo'}, {x: 100, y: 50, type: 'lineTo'},
+            {x: 100, y: 50, type: 'moveTo'}, {x: 200, y: 250, type: 'lineTo'},
+            {x: 200, y: 250, type: 'moveTo'}, {x: 200, y: 50, type: 'lineTo'}
+        ]},
+        { letter: 'O', name: 'Chữ O', strokePaths: [
+            {x: 150, y: 50, type: 'moveTo'}, {x: 100, y: 75, type: 'lineTo'},
+            {x: 100, y: 225, type: 'lineTo'}, {x: 150, y: 250, type: 'lineTo'},
+            {x: 200, y: 225, type: 'lineTo'}, {x: 200, y: 75, type: 'lineTo'},
+            {x: 150, y: 50, type: 'lineTo'}
+        ]},
+        { letter: 'P', name: 'Chữ P', strokePaths: [
+            {x: 100, y: 50, type: 'moveTo'}, {x: 100, y: 250, type: 'lineTo'},
+            {x: 100, y: 50, type: 'moveTo'}, {x: 180, y: 50, type: 'lineTo'},
+            {x: 200, y: 75, type: 'lineTo'}, {x: 200, y: 100, type: 'lineTo'},
+            {x: 180, y: 125, type: 'lineTo'}, {x: 100, y: 125, type: 'lineTo'}
+        ]},
+        { letter: 'Q', name: 'Chữ Q', strokePaths: [
+            {x: 150, y: 50, type: 'moveTo'}, {x: 100, y: 75, type: 'lineTo'},
+            {x: 100, y: 225, type: 'lineTo'}, {x: 150, y: 250, type: 'lineTo'},
+            {x: 200, y: 225, type: 'lineTo'}, {x: 200, y: 75, type: 'lineTo'},
+            {x: 150, y: 50, type: 'lineTo'}, {x: 150, y: 175, type: 'moveTo'},
+            {x: 200, y: 250, type: 'lineTo'}
+        ]},
+        { letter: 'R', name: 'Chữ R', strokePaths: [
+            {x: 100, y: 50, type: 'moveTo'}, {x: 100, y: 250, type: 'lineTo'},
+            {x: 100, y: 50, type: 'moveTo'}, {x: 180, y: 50, type: 'lineTo'},
+            {x: 200, y: 75, type: 'lineTo'}, {x: 200, y: 100, type: 'lineTo'},
+            {x: 180, y: 125, type: 'lineTo'}, {x: 100, y: 125, type: 'lineTo'},
+            {x: 180, y: 125, type: 'moveTo'}, {x: 200, y: 250, type: 'lineTo'}
+        ]},
+        { letter: 'S', name: 'Chữ S', strokePaths: [
+            {x: 200, y: 75, type: 'moveTo'}, {x: 175, y: 50, type: 'lineTo'},
+            {x: 125, y: 50, type: 'lineTo'}, {x: 100, y: 75, type: 'lineTo'},
+            {x: 100, y: 125, type: 'lineTo'}, {x: 175, y: 175, type: 'lineTo'},
+            {x: 200, y: 225, type: 'lineTo'}, {x: 175, y: 250, type: 'lineTo'},
+            {x: 125, y: 250, type: 'lineTo'}, {x: 100, y: 225, type: 'lineTo'}
+        ]},
+        { letter: 'T', name: 'Chữ T', strokePaths: [
+            {x: 100, y: 50, type: 'moveTo'}, {x: 200, y: 50, type: 'lineTo'},
+            {x: 150, y: 50, type: 'moveTo'}, {x: 150, y: 250, type: 'lineTo'}
+        ]},
+        { letter: 'U', name: 'Chữ U', strokePaths: [
+            {x: 100, y: 50, type: 'moveTo'}, {x: 100, y: 225, type: 'lineTo'},
+            {x: 125, y: 250, type: 'lineTo'}, {x: 175, y: 250, type: 'lineTo'},
+            {x: 200, y: 225, type: 'lineTo'}, {x: 200, y: 50, type: 'lineTo'}
+        ]},
+        { letter: 'V', name: 'Chữ V', strokePaths: [
+            {x: 100, y: 50, type: 'moveTo'}, {x: 150, y: 250, type: 'lineTo'},
+            {x: 150, y: 250, type: 'moveTo'}, {x: 200, y: 50, type: 'lineTo'}
+        ]},
+        { letter: 'W', name: 'Chữ W', strokePaths: [
+            {x: 100, y: 50, type: 'moveTo'}, {x: 125, y: 250, type: 'lineTo'},
+            {x: 150, y: 150, type: 'lineTo'}, {x: 175, y: 250, type: 'lineTo'},
+            {x: 200, y: 50, type: 'lineTo'}
+        ]},
+        { letter: 'X', name: 'Chữ X', strokePaths: [
+            {x: 100, y: 50, type: 'moveTo'}, {x: 200, y: 250, type: 'lineTo'},
+            {x: 200, y: 50, type: 'moveTo'}, {x: 100, y: 250, type: 'lineTo'}
+        ]},
+        { letter: 'Y', name: 'Chữ Y', strokePaths: [
+            {x: 100, y: 50, type: 'moveTo'}, {x: 150, y: 150, type: 'lineTo'},
+            {x: 150, y: 150, type: 'moveTo'}, {x: 200, y: 50, type: 'lineTo'},
+            {x: 150, y: 150, type: 'moveTo'}, {x: 150, y: 250, type: 'lineTo'}
+        ]},
+        { letter: 'Z', name: 'Chữ Z', strokePaths: [
+            {x: 100, y: 50, type: 'moveTo'}, {x: 200, y: 50, type: 'lineTo'},
+            {x: 200, y: 50, type: 'moveTo'}, {x: 100, y: 250, type: 'lineTo'},
+            {x: 100, y: 250, type: 'moveTo'}, {x: 200, y: 250, type: 'lineTo'}
+        ]}
+    ];
+        
+        // Khởi tạo các biến và DOM elements
+        let currentLetterIndex = 0;
+        let isAnimating = false;
+        let isPracticeMode = false;
+        let userDrawing = [];
+        
+        const container = document.querySelector('.container');
+        const alphabetSelector = document.querySelector('.alphabet-selector');
+        const currentLetterElement = document.querySelector('.current-letter');
+        const letterNameElement = document.querySelector('.letter-name');
+        const canvas = document.getElementById('animationCanvas');
+        const ctx = canvas.getContext('2d');
+        const animateBtn = document.querySelector('.animate-btn');
+        const clearBtn = document.querySelector('.clear-btn');
+        const practiceBtn = document.querySelector('.practice-btn');
+        const prevBtn = document.querySelector('.prev-btn');
+        const nextBtn = document.querySelector('.next-btn');
+        const progressBar = document.querySelector('.progress');
+        const message = document.querySelector('.message');
+        
+        // Thiết lập canvas
+        function setupCanvas() {
+            const canvasContainer = document.querySelector('.canvas-container');
+            canvas.width = canvasContainer.offsetWidth;
+            canvas.height = canvasContainer.offsetHeight;
+            clearCanvas();
+        }
+        
+        // Tạo các nút chữ cái
+        function createAlphabetButtons() {
+            const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            
+            for (let i = 0; i < alphabet.length; i++) {
+                const letter = alphabet[i];
+                const button = document.createElement('button');
+                button.className = 'letter-btn';
+                button.textContent = letter;
+                button.addEventListener('click', () => {
+                    currentLetterIndex = i;
+                    updateUI();
+                });
+                alphabetSelector.appendChild(button);
+            }
+        }
+        
+        // Cập nhật giao diện người dùng
+        function updateUI() {
+            // Cập nhật nút active
+            const buttons = document.querySelectorAll('.letter-btn');
+            buttons.forEach((btn, index) => {
+                if (index === currentLetterIndex) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            
+            // Cập nhật chữ cái hiển thị
+            const currentData = alphabetData[currentLetterIndex] || alphabetData[0];
+            currentLetterElement.textContent = currentData.letter;
+            letterNameElement.textContent = currentData.name;
+            
+            // Cập nhật thanh tiến trình
+            const progress = ((currentLetterIndex + 1) / 26) * 100;
+            progressBar.style.width = `${progress}%`;
+            
+            // Xóa canvas
+            clearCanvas();
+            
+            // Reset chế độ thực hành
+            isPracticeMode = false;
+            container.classList.remove('practice-mode');
+            message.style.display = 'none';
+        }
+        
+        // Xóa canvas
+        function clearCanvas() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            userDrawing = [];
+        }
+        
+        // Vẽ đường viết từng nét một
+        function animateStroke(paths, index = 0) {
+            if (index >= paths.length) {
+                isAnimating = false;
+                return;
+            }
+            
+            isAnimating = true;
+            const currentPath = paths[index];
+            
+            if (currentPath.type === 'moveTo') {
+                ctx.beginPath();
+                ctx.moveTo(currentPath.x, currentPath.y);
+                animateStroke(paths, index + 1);
+            } else if (currentPath.type === 'lineTo') {
+                const prevPath = paths[index - 1];
+                const startX = prevPath.x;
+                const startY = prevPath.y;
+                const endX = currentPath.x;
+                const endY = currentPath.y;
+                
+                // Vẽ đường từ từ
+                let progress = 0;
+                const animationSpeed = 0.01;
+                const drawLine = () => {
+                    if (progress >= 1) {
+                        animateStroke(paths, index + 1);
+                        return;
+                    }
+                    
+                    progress += animationSpeed;
+                    const x = startX + (endX - startX) * progress;
+                    const y = startY + (endY - startY) * progress;
+                    
+                    ctx.lineTo(x, y);
+                    ctx.stroke();
+                    
+                    requestAnimationFrame(drawLine);
+                };
+                
+                ctx.strokeStyle = '#4A90E2';
+                ctx.lineWidth = 5;
+                ctx.lineCap = 'round';
+                drawLine();
+            }
+        }
+        
+        // Bắt đầu vẽ mẫu
+        function startAnimation() {
+            if (isAnimating) return;
+            
+            clearCanvas();
+            isPracticeMode = false;
+            container.classList.remove('practice-mode');
+            message.style.display = 'none';
+            
+            const currentData = alphabetData[currentLetterIndex] || alphabetData[0];
+            animateStroke(currentData.strokePaths);
+        }
+        
+        // Bật chế độ thực hành
+        function enablePracticeMode() {
+            if (isAnimating) return;
+            
+            clearCanvas();
+            isPracticeMode = true;
+            container.classList.add('practice-mode');
+            message.style.display = 'block';
+            
+            // Vẽ đường viết mẫu mờ
+            const currentData = alphabetData[currentLetterIndex] || alphabetData[0];
+            drawGuideLines(currentData.strokePaths);
+        }
+        
+        // Vẽ đường mẫu mờ để người dùng theo
+        function drawGuideLines(paths) {
+            ctx.beginPath();
+            
+            for (let i = 0; i < paths.length; i++) {
+                const path = paths[i];
+                
+                if (path.type === 'moveTo') {
+                    ctx.moveTo(path.x, path.y);
+                } else if (path.type === 'lineTo') {
+                    ctx.lineTo(path.x, path.y);
+                }
+            }
+            
+            ctx.strokeStyle = 'rgba(74, 144, 226, 0.3)';
+            ctx.lineWidth = 8;
+            ctx.lineCap = 'round';
+            ctx.stroke();
+        }
+        
+        // Chuyển đến chữ cái trước
+        function prevLetter() {
+            if (currentLetterIndex > 0) {
+                currentLetterIndex--;
+                updateUI();
+            }
+        }
+        
+        // Chuyển đến chữ cái tiếp theo
+        function nextLetter() {
+            if (currentLetterIndex < 25) {
+                currentLetterIndex++;
+                updateUI();
+            }
+        }
+        
+        // Bắt sự kiện từ người dùng
+        let isDrawing = false;
+        let lastX = 0;
+        let lastY = 0;
+        
+        function startDrawing(e) {
+            if (!isPracticeMode) return;
+            
+            isDrawing = true;
+            const rect = canvas.getBoundingClientRect();
+            lastX = e.clientX - rect.left;
+            lastY = e.clientY - rect.top;
+            
+            // Thêm điểm vào mảng vẽ của người dùng
+            userDrawing.push({
+                x: lastX,
+                y: lastY,
+                type: 'moveTo'
+            });
+        }
+        
+        function draw(e) {
+            if (!isDrawing || !isPracticeMode) return;
+            
+            const rect = canvas.getBoundingClientRect();
+            const currentX = e.clientX - rect.left;
+            const currentY = e.clientY - rect.top;
+            
+            ctx.beginPath();
+            ctx.moveTo(lastX, lastY);
+            ctx.lineTo(currentX, currentY);
+            ctx.strokeStyle = '#FF5252';
+            ctx.lineWidth = 5;
+            ctx.lineCap = 'round';
+            ctx.stroke();
+            
+            lastX = currentX;
+            lastY = currentY;
+            
+            // Thêm điểm vào mảng vẽ của người dùng
+            userDrawing.push({
+                x: currentX,
+                y: currentY,
+                type: 'lineTo'
+            });
+        }
+        
+        function stopDrawing() {
+            isDrawing = false;
+        }
+        
+        // Đăng ký các sự kiện
+        canvas.addEventListener('mousedown', startDrawing);
+        canvas.addEventListener('mousemove', draw);
+        canvas.addEventListener('mouseup', stopDrawing);
+        canvas.addEventListener('mouseout', stopDrawing);
+        
+        // Hỗ trợ thiết bị cảm ứng
+        canvas.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            const touch = e.touches[0];
+            const mouseEvent = new MouseEvent('mousedown', {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            });
+            canvas.dispatchEvent(mouseEvent);
+        });
+        
+        canvas.addEventListener('touchmove', function(e) {
+            e.preventDefault();
+            const touch = e.touches[0];
+            const mouseEvent = new MouseEvent('mousemove', {
+                clientX: touch.clientX,
+                clientY: touch.clientY
+            });
+            canvas.dispatchEvent(mouseEvent);
+        });
+        
+        canvas.addEventListener('touchend', function(e) {
+            e.preventDefault();
+            const mouseEvent = new MouseEvent('mouseup');
+            canvas.dispatchEvent(mouseEvent);
+        });
+        
+        // Đăng ký sự kiện cho các nút
+        animateBtn.addEventListener('click', startAnimation);
+        clearBtn.addEventListener('click', () => {
+            if (isPracticeMode) {
+                clearCanvas();
+                enablePracticeMode();
+            } else {
+                clearCanvas();
+            }
+        });
+        practiceBtn.addEventListener('click', enablePracticeMode);
+        prevBtn.addEventListener('click', prevLetter);
+        nextBtn.addEventListener('click', nextLetter);
+        
+        // Điều chỉnh kích thước canvas khi thay đổi kích thước cửa sổ
+        window.addEventListener('resize', setupCanvas);
+        
+        // Khởi tạo ứng dụng
+        function initApp() {
+            createAlphabetButtons();
+            setupCanvas();
+            updateUI();
+        }
+        
+        // Khởi chạy ứng dụng
+        initApp();
+    </script>
+</body>
+</html>
